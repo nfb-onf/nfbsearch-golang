@@ -2,6 +2,8 @@
 
 ### Usage
 
+    follow installation steps
+    revel run nfbsearch
     visit /search?q=something+to+search
 
 ### Installation
