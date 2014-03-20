@@ -1,8 +1,8 @@
 package controllers
 
+import "fmt"
 import "github.com/robfig/revel"
 import "github.com/mattbaird/elastigo/api"
-import "github.com/mattbaird/elastigo/core"
 
 
 type Payload struct {
@@ -35,9 +35,9 @@ func (c App) Search(q string) revel.Result {
 		},
 	}
 
-	results, error := core.SearchRequest("nfb_films", "films", nil, query)
-	return c.RenderJson(map[string]interface {}{
-		"results": results,
-		"error": error,
-	})
+	var uriVal string
+	uriVal = fmt.Sprintf("/%s/%s/_search", "nfb_films", "films")
+	body, _ := api.DoCommand("POST", uriVal, nil, query)
+
+	return c.RenderText(string(body[:]))
 }
